@@ -35,13 +35,13 @@ int main(){
   //   rrr.erase(4,1);
   //   rrr.zevel();
 
-  Page p ;
-  p.write(0,0,Direction::Horizontal,"B");
-  p.write(1,0,Direction::Horizontal,"A");
-  p.write(2,0,Direction::Horizontal,"R");
-  p.write(3,0,Direction::Horizontal,"C");
-  p.write(4,0,Direction::Horizontal,"A");
-  cout << p.check_dirty(0,0,Direction::Horizontal,3)<<endl;
+  // Page p ;
+  // p.write(0,0,Direction::Horizontal,"B");
+  // p.write(1,0,Direction::Horizontal,"A");
+  // p.write(2,0,Direction::Horizontal,"R");
+  // p.write(3,0,Direction::Horizontal,"C");
+  // p.write(4,0,Direction::Horizontal,"A");
+  // cout << p.check_dirty(0,0,Direction::Horizontal,3)<<endl;
  // cout <<"the char is "<< p.read(0,3,Direction::Horizontal,1)<< "!!!"<<endl;
 //   bool ans = p.check_dirty(0,50,Direction::Vertical,3);
 //   p.show_page();
@@ -58,10 +58,12 @@ int main(){
   
 
           Notebook nb;
-          nb.write(0,0,0,Direction::Vertical,"CHAILEVI");
+          
          // cout<<nb.read(0,0,0,Direction::Horizontal,8)<<endl;
           //cout<<nb.read(0,0,0,Direction::Horizontal,9)<<endl;
-        cout <<nb.check_dirty(0,90,15,Direction::Horizontal,8)<<endl;
+       
+             nb.write(10,10,10,Direction::Vertical,"CHAILEVI");
+            cout <<nb.read(10,10,10,Direction::Vertical,8);
 
         
 

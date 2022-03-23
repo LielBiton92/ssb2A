@@ -39,7 +39,7 @@ bool ariel::Notebook::check_dirty(unsigned int page , unsigned int row , unsigne
 void ariel::Notebook::write(unsigned int page ,unsigned int row ,unsigned int col , Direction state , std::string towrite){
         check_t(col);
         check_pages_size(page);
-    //    this->check_throws(page , row , col , state , (unsigned long)towrite.size());
+       // this->check_throws(page , row , col , state , (unsigned long)towrite.size());
         mynotebook[page].write(row , col , state , std::move(towrite));
         
 
@@ -49,9 +49,9 @@ string ariel::Notebook::read(unsigned int page ,  unsigned int row ,  unsigned i
         check_t(col);
         check_pages_size(page);
       //  this->check_throws(page , row , col , state , num);
-        //          if(col+num > 100){
-        //         throw std::invalid_argument("error ! cannot write after col number 100");
-        // }
+                 if(col+num > 100){
+                throw std::invalid_argument("error ! cannot write after col number 100");
+        }
         return mynotebook[page].read(row , col , state , num);
 
 }
