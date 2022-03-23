@@ -46,14 +46,24 @@ TEST_CASE("Read-Good input"){
 TEST_CASE("read & write"){    
     Notebook notebook;
     notebook.write(0,0,0,Direction::Horizontal,"asd");
+    notebook.write(0,0,0,Direction::Horizontal,"lior");
     notebook.write(50,50,0,Direction::Vertical,"lsd");
     notebook.write(2,2,0,Direction::Horizontal,"barcelona");
     notebook.write(3,3,0,Direction::Horizontal,"messi");
     notebook.write(60,66,0,Direction::Vertical,"ety");
     notebook.write(6,6,0,Direction::Horizontal,"aaa");
     notebook.write(10,10,98,Direction::Horizontal,"holla");
+    Notebook notebook4;
+    notebook4.write(0,0,0,Direction::Horizontal,"liel");
+    CHECK(notebook4.read(0,0,0,Direction::Horizontal,4)=="liel");
+    CHECK(notebook4.read(0,0,0,Direction::Horizontal,5)=="liel_");
+    CHECK(notebook4.read(0,0,1,Direction::Horizontal,3)=="iel");
+    CHECK(notebook4.read(0,0,1,Direction::Horizontal,5)=="_iel_");
+    CHECK(notebook4.read(2,2,2,Direction::Horizontal,4)=="____");
 
     CHECK(nospaces(notebook.read(0,0,0,Direction::Horizontal,3))==nospaces("asd"));
+    CHECK(nospaces(notebook.read(0,0,0,Direction::Horizontal,4))==nospaces("lior"));
+
     CHECK(nospaces(notebook.read(50,50,0,Direction::Vertical,3))==nospaces("lsd"));
     CHECK(nospaces(notebook.read(2,2,0,Direction::Horizontal,9))==nospaces("barcelona"));
     CHECK(nospaces(notebook.read(3,3,0,Direction::Horizontal,5))==nospaces("messi"));
