@@ -12,7 +12,7 @@ int main(){
   //  bool ans = rrr.check_dirty(5,5);
   //  cout << rrr.read(5,5)<<"the word is";
   //  cout << ans<<"hello" ;
-  //  rrr.zevel();
+    // rrr.zevel();
     //rrr.write(0,"yalla");
   //  rrr.zevel();
   //  cout<<rrr.read(1,5)<<endl;
@@ -41,10 +41,11 @@ int main(){
   p.write(2,0,Direction::Horizontal,"R");
   p.write(3,0,Direction::Horizontal,"C");
   p.write(4,0,Direction::Horizontal,"A");
+  cout << p.check_dirty(0,0,Direction::Horizontal,3)<<endl;
  // cout <<"the char is "<< p.read(0,3,Direction::Horizontal,1)<< "!!!"<<endl;
-  bool ans = p.check_dirty(0,50,Direction::Vertical,3);
-  p.show_page();
-  cout <<"hello world "<< ans ;
+//   bool ans = p.check_dirty(0,50,Direction::Vertical,3);
+//   p.show_page();
+//   cout <<"hello world "<< ans ;
     //  p.write(10,10,Direction::Vertical,"CHAILEVI");
     //  p.show_page();
 
@@ -56,7 +57,25 @@ int main(){
   
   
 
-    //     Notebook nb;
+          Notebook nb;
+          nb.write(0,0,0,Direction::Vertical,"CHAILEVI");
+         // cout<<nb.read(0,0,0,Direction::Horizontal,8)<<endl;
+          //cout<<nb.read(0,0,0,Direction::Horizontal,9)<<endl;
+        cout <<nb.check_dirty(0,90,15,Direction::Horizontal,8)<<endl;
+
+        
+
+
+        // Page pa;
+        // pa.write(90,15,Direction::Vertical,"sad");
+        // cout <<pa.read(90,15,Direction::Vertical,8)<<endl;
+        // cout << pa.check_dirty(90,15,Direction::Vertical,8)<<endl;
+ 
+
+
+     //    nb.read()
+     //    bool ans = nb.check_dirty(10,10,11,Direction::Vertical,8);
+       //  cout << "  "<< ans << " ";
     //     nb.show(0);
     //     nb.write(0,0,0,Direction::Horizontal,"yalla");
     //  nb.write(0,1,0,Direction::Horizontal,"yalla ya ");

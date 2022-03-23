@@ -6,15 +6,15 @@
 using namespace std;
 using namespace ariel;
 const int col_limit = 100;
- unsigned long i=0;
+ unsigned int i=0;
 
- void ariel::check_t(unsigned long num){
+ void ariel::check_t(unsigned int num ){
          if (num > col_limit){
                throw std::invalid_argument("max col is 100"); 
          }
  }
 
-void ariel::Notebook::check_throws(unsigned long page , unsigned long row , unsigned long col ,Direction state , unsigned long numtocheck){
+void ariel::Notebook::check_throws(unsigned int page , unsigned int row , unsigned int col ,Direction state , unsigned int numtocheck){
         if(this->check_dirty(page , row , col , state , numtocheck)){
                 throw std::invalid_argument("someone else wrote here");
         }
@@ -25,18 +25,18 @@ void ariel::Notebook::check_throws(unsigned long page , unsigned long row , unsi
         }
 }
 
-void ariel::Notebook::check_pages_size(unsigned long page ){
+void ariel::Notebook::check_pages_size(unsigned int page ){
         if(mynotebook.size()<=page){
                 mynotebook.resize(page+1);
         }
 }
 
-bool ariel::Notebook::check_dirty(unsigned long page , unsigned long row , unsigned long col , Direction state , unsigned long numtocheck){
+bool ariel::Notebook::check_dirty(unsigned int page , unsigned int row , unsigned int col , Direction state , unsigned int numtocheck){
         bool ans = this->mynotebook[page].check_dirty(row , col , state , numtocheck);
         return ans ; 
 }
 
-void ariel::Notebook::write(unsigned long page ,unsigned long row ,unsigned long col , Direction state , std::string towrite){
+void ariel::Notebook::write(unsigned int page ,unsigned int row ,unsigned int col , Direction state , std::string towrite){
         check_t(col);
         check_pages_size(page);
     //    this->check_throws(page , row , col , state , (unsigned long)towrite.size());
@@ -45,7 +45,7 @@ void ariel::Notebook::write(unsigned long page ,unsigned long row ,unsigned long
 
 }
 
-string ariel::Notebook::read(unsigned long page ,  unsigned long row ,  unsigned long col , Direction state , unsigned long num){
+string ariel::Notebook::read(unsigned int page ,  unsigned int row ,  unsigned int col , Direction state , unsigned int num){
         check_t(col);
         check_pages_size(page);
       //  this->check_throws(page , row , col , state , num);
@@ -56,13 +56,13 @@ string ariel::Notebook::read(unsigned long page ,  unsigned long row ,  unsigned
 
 }
 
-void ariel::Notebook::erase( unsigned long page ,  unsigned long  row ,  unsigned long col , Direction state , unsigned long num){
+void ariel::Notebook::erase( unsigned int page ,  unsigned int  row ,  unsigned int col , Direction state , unsigned int num){
         check_t(col);
         check_pages_size(page);
         mynotebook[page].erase(row , col , state , num);
 }
 
-void ariel::Notebook::show( unsigned long page){
+void ariel::Notebook::show( unsigned int page){
         check_pages_size(page);
         mynotebook[page].show_page();
 }
@@ -76,7 +76,7 @@ void ariel::Notebook::show( unsigned long page){
 // }
 
 ariel::Row::Row(){
-        for(unsigned long j = 0 ; j < col_limit ; j++){
+        for(unsigned int j = 0 ; j < col_limit ; j++){
                 this->myrow.push_back('_');
         }
 }
@@ -84,23 +84,23 @@ ariel::Row::Row(){
 //         delete[] myrow;
 // }
 
-void ariel::Row::write( unsigned long pos , string tw){
+void ariel::Row::write( unsigned int pos , string tw){
         for (i = 0;i< tw.size();i++){
                 this->myrow[pos+i]=tw[i];
         }
 }
 
-void ariel::Row::writechar( unsigned long pos , char tw){
+void ariel::Row::writechar( unsigned int pos , char tw){
                this->myrow[pos]=tw;   
 }
 
-void ariel::Row::erase( unsigned long pos , unsigned long len){
+void ariel::Row::erase( unsigned int pos , unsigned int len){
         for (i = 0 ; i< len;i++){
                 this->myrow[pos+i]='~';
         }
 }
 
-string ariel::Row::read( unsigned long pos ,  unsigned long len){
+string ariel::Row::read( unsigned int pos ,  unsigned int len){
         string ans;
         
         for(i = 0 ; i< len ; i++){
@@ -114,11 +114,11 @@ string ariel::Row::read( unsigned long pos ,  unsigned long len){
 
 
 
-char ariel::Row::readchar( unsigned long pos){
+char ariel::Row::readchar( unsigned int pos){
         return this->myrow[pos];
 }
 
-bool ariel::Row::check_dirty(unsigned long pos , unsigned long numtocheck){
+bool ariel::Row::check_dirty(unsigned int pos , unsigned int numtocheck){
         for(i = 0 ; i < numtocheck ; i++){
                 if(this->myrow[pos]!='_' and this->myrow[pos]!='~'){
                         return true ;
@@ -128,7 +128,7 @@ bool ariel::Row::check_dirty(unsigned long pos , unsigned long numtocheck){
         return false;
 }
 
-bool ariel::Row::check_dirty_char(unsigned long pos ){
+bool ariel::Row::check_dirty_char(unsigned int pos ){
         bool ans = false;
         if(this->myrow[pos]!='_' and this->myrow[pos]!='~'){
                 ans = true;
@@ -138,7 +138,7 @@ bool ariel::Row::check_dirty_char(unsigned long pos ){
 }
 
 void ariel::Row::zevel(){
-         for(unsigned long i = 0 ; i < this->myrow.size(); i++){
+         for(unsigned int i = 0 ; i < this->myrow.size(); i++){
                  cout << myrow[i] ;
          }
 }
@@ -146,27 +146,27 @@ void ariel::Row::zevel(){
 
 
 
-void ariel::Page::check_size_rows( unsigned long row){
+void ariel::Page::check_size_rows( unsigned int row){
         if (this->mypage.size()<=row){
                 this->mypage.resize(row+1);       
         }
 }
 
 
-void ariel::Page::check_size_cols( unsigned long row , string const &tw){
+void ariel::Page::check_size_cols( unsigned int row , string const &tw){
         if (mypage.size()<=row + tw.size()){
                 mypage.resize(row+tw.size());
 
         }
 }
-void ariel::Page::check_size_cols_toerase( unsigned long row , unsigned long  numtodel){
+void ariel::Page::check_size_cols_toerase( unsigned int row , unsigned int  numtodel){
         if(mypage.size()<=row+numtodel){
                 mypage.resize(row+numtodel);
         }
 
 }
 
-void ariel::Page::write( unsigned long row ,  unsigned long pos , Direction state , std::string tw){
+void ariel::Page::write( unsigned int row ,  unsigned int pos , Direction state , std::string tw){
         check_size_rows(row);
         check_size_cols(row , tw);
 
@@ -175,8 +175,8 @@ void ariel::Page::write( unsigned long row ,  unsigned long pos , Direction stat
 }
 
         else if(state == Direction::Vertical){
-                 unsigned long j = 0;
-                 unsigned long k  = row;
+                 unsigned int j = 0;
+                 unsigned int k  = row;
                 while(k < row+tw.size()){
                         this->mypage[row+j].writechar(pos ,tw.at(j));
                 
@@ -188,7 +188,7 @@ void ariel::Page::write( unsigned long row ,  unsigned long pos , Direction stat
         }
 }
 
-void ariel::Page::erase( unsigned long row ,  unsigned long pos , Direction state , unsigned long numtodel){
+void ariel::Page::erase( unsigned int row ,  unsigned int pos , Direction state , unsigned int numtodel){
         
         if (state == Direction::Horizontal){
                 check_size_rows(row);
@@ -196,8 +196,8 @@ void ariel::Page::erase( unsigned long row ,  unsigned long pos , Direction stat
         }
         else if (state == Direction::Vertical){
                 check_size_cols_toerase(row , numtodel);
-                 unsigned long j = 0 ;
-                 unsigned long k = row ;
+                 unsigned int j = 0 ;
+                 unsigned int k = row ;
                 while(k < row+numtodel){
                         cout << " row: "<< k <<endl;
                         cout << " row+numtodel: "<< row+numtodel <<endl;
@@ -209,7 +209,7 @@ void ariel::Page::erase( unsigned long row ,  unsigned long pos , Direction stat
         }
 }
 
-string ariel::Page::read( unsigned long row ,  unsigned long pos , Direction state ,  unsigned long numtoread){
+string ariel::Page::read( unsigned int row ,  unsigned int pos , Direction state ,  unsigned int numtoread){
         check_size_rows(row);
         check_size_cols_toerase(row , numtoread);
         string res;
@@ -221,7 +221,7 @@ string ariel::Page::read( unsigned long row ,  unsigned long pos , Direction sta
                 if(mypage.size()<row+numtoread){
                         mypage.resize(row+numtoread);
                 }
-                 unsigned long j = 0 ; 
+                 unsigned int j = 0 ; 
                 i = row ; 
                 while (i < row + numtoread){
                         res += mypage[row+j].readchar(pos);
@@ -235,7 +235,7 @@ string ariel::Page::read( unsigned long row ,  unsigned long pos , Direction sta
         return res;
 }
 
-bool ariel::Page::check_dirty(unsigned long row , unsigned long pos , Direction state , unsigned long numtocheck){
+bool ariel::Page::check_dirty(unsigned int row , unsigned int pos , Direction state , unsigned int numtocheck){
         bool ans=false ;
         bool final_ans = false; 
         if( state == Direction::Horizontal){
@@ -243,9 +243,9 @@ bool ariel::Page::check_dirty(unsigned long row , unsigned long pos , Direction 
 }
 
         else if(state == Direction::Vertical){
-                unsigned long j = 0;
+                unsigned int j = 0;
                 cout << "to write is : ";
-                unsigned long k  = row;
+                unsigned int k  = row;
                 while(k < row+numtocheck){
                    ans = this->mypage[row+j].check_dirty_char(pos);
                    if(ans){

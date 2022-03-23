@@ -6,7 +6,7 @@ const  int  limit = 100;
 #include "vector"
 using namespace std;
 namespace ariel{
-        void check_t(unsigned long num);
+        void check_t(unsigned int num);
 class Notebook;
 class Page;
 class Row;
@@ -17,19 +17,19 @@ class Notebook{
  
         public:
 
-          void check_pages_size( unsigned long page);
+          void check_pages_size( unsigned int page);
 
-          void write( unsigned long page ,  unsigned long row ,  unsigned long col , Direction state ,const  std::string towrite);
+          void write( unsigned int page ,  unsigned int row ,  unsigned int col , Direction state ,const  std::string towrite);
 
-          std::string read( unsigned long page ,  unsigned long row ,  unsigned long col , ariel::Direction state , unsigned long  );
+          std::string read( unsigned int page ,  unsigned int row ,  unsigned int col , ariel::Direction state , unsigned int  );
 
-          void erase( unsigned long page ,  unsigned long  row ,  unsigned long col , Direction state , unsigned long num);
+          void erase( unsigned int page ,  unsigned int  row ,  unsigned int col , Direction state , unsigned int num);
 
-          bool check_dirty(unsigned long page , unsigned long row , unsigned long col , Direction state , unsigned long numtocheck);
+          bool check_dirty(unsigned int page , unsigned int row , unsigned int col , Direction state , unsigned int numtocheck);
 
-          void show( unsigned long page);
+          void show( unsigned int page);
 
-          void check_throws(unsigned long page , unsigned long row , unsigned long col ,Direction state , unsigned long numtocheck);
+          void check_throws(unsigned int page , unsigned int row , unsigned int col ,Direction state , unsigned int numtocheck);
 
 
 
@@ -43,15 +43,15 @@ class Page{
 
         public:
         // ~page();
-        void check_size_rows( unsigned long row);
+        void check_size_rows( unsigned int row);
         string print();
-        void check_size_cols_toerase( unsigned long row , unsigned long numtodel);
-        void check_size_cols( unsigned long row,  std::string const &tw);
-        void write( unsigned long row , unsigned long pos , Direction state , std::string tw);
-        void erase( unsigned long row ,  unsigned long pos , Direction state ,  unsigned long numtodel);
+        void check_size_cols_toerase( unsigned int row , unsigned int numtodel);
+        void check_size_cols( unsigned int row,  std::string const &tw);
+        void write( unsigned int row , unsigned int pos , Direction state , std::string tw);
+        void erase( unsigned int row ,  unsigned int pos , Direction state ,  unsigned int numtodel);
         void show_page();
-        bool check_dirty(unsigned long row , unsigned long pos , Direction state , unsigned long numtocheck);
-        std::string read( unsigned long row ,  unsigned long pos , Direction state ,  unsigned long numtoread);
+        bool check_dirty(unsigned int row , unsigned int pos , Direction state , unsigned int numtocheck);
+        std::string read( unsigned int row ,  unsigned int pos , Direction state ,  unsigned int numtoread);
 
 
 };
@@ -65,13 +65,13 @@ class Row{
         public:
                 Row();
                 // ~Row(); 
-                void write( unsigned long pos , std::string tw );
-                void erase( unsigned long pos ,  unsigned long len);
-                char readchar( unsigned long pos);
-                std::string read( unsigned long pos , unsigned long len);
-                void writechar( unsigned long pos , char tw);
-                bool check_dirty(unsigned long pos , unsigned long numtocheck);
-                bool check_dirty_char(unsigned long pos );
+                void write( unsigned int pos , std::string tw );
+                void erase( unsigned int pos ,  unsigned int len);
+                char readchar( unsigned int pos);
+                std::string read( unsigned int pos , unsigned int len);
+                void writechar( unsigned int pos , char tw);
+                bool check_dirty(unsigned int pos , unsigned int numtocheck);
+                bool check_dirty_char(unsigned int pos );
                 void zevel();
         
 };

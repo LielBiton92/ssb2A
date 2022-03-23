@@ -56,7 +56,6 @@ TEST_CASE("read & write"){
     notebook.write(3,3,0,Direction::Horizontal,"messi");
     notebook.write(60,66,0,Direction::Vertical,"ety");
     notebook.write(6,6,0,Direction::Horizontal,"aaa");
-    notebook.write(10,10,98,Direction::Horizontal,"holla");
     Notebook notebook4;
     notebook4.write(0,0,0,Direction::Horizontal,"liel");
     CHECK(notebook4.read(0,0,0,Direction::Horizontal,4)=="liel");
@@ -66,13 +65,11 @@ TEST_CASE("read & write"){
     CHECK(notebook4.read(2,2,2,Direction::Horizontal,4)=="____");
 
     CHECK(nospaces(notebook.read(0,0,0,Direction::Horizontal,3))==nospaces("asd"));
-    CHECK(nospaces(notebook.read(0,0,0,Direction::Horizontal,4))==nospaces("lior"));
-
     CHECK(nospaces(notebook.read(50,50,0,Direction::Vertical,3))==nospaces("lsd"));
     CHECK(nospaces(notebook.read(2,2,0,Direction::Horizontal,9))==nospaces("barcelona"));
     CHECK(nospaces(notebook.read(3,3,0,Direction::Horizontal,5))==nospaces("messi"));
     CHECK(nospaces(notebook.read(60,66,0,Direction::Vertical,3))==nospaces("ety"));
-    CHECK(nospaces(notebook.read(6,6,0,Direction::Horizontal,3))==nospaces("aaa"));
+    CHECK(nospaces(notebook.read(6,6,0,Direction::Horizontal,3))==nospaces("a                aa"));
 
     
 }
@@ -91,9 +88,14 @@ TEST_CASE("erase "){
 } 
 
 TEST_CASE("BAD"){
-   Notebook notebook4;
-   CHECK(nospaces(notebook4.read(0,0,0,Direction::Horizontal,3))!=nospaces("asd"));
-   CHECK_THROWS(notebook4.write(10,10,98,Direction::Horizontal,"holla"));
+   Notebook notebook5;
+   CHECK(nospaces(notebook5.read(0,0,0,Direction::Horizontal,3))!=nospaces("asd"));
+   CHECK_THROWS(notebook5.write(10,10,98,Direction::Horizontal,"holla"));
+   notebook5.write(6,6,6,Direction::Horizontal,"waa");
+   notebook5.erase(6,6,6,Direction::Horizontal,3);
+   CHECK_THROWS(notebook5.write(6,6,6,Direction::Horizontal,"yes"));
+   CHECK_THROWS(notebook5.read(6,6,6,Direction::Horizontal,3)=="aa");
+   CHECK_THROWS(notebook5.read(6,6,6,Direction::Horizontal,3)=="yes");
    
 }
 
