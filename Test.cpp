@@ -34,6 +34,10 @@ TEST_CASE("Read-Good input"){
      nb.write(10,10,10,Direction::Vertical,"CHAILEVI");
      CHECK(nospaces(nb.read(10,10,10,Direction::Vertical,8))==nospaces("CHAILEVY"));
      CHECK(nospaces(nb.read(10,10,10,Direction::Vertical,5))!=nospaces("CHAILEVY"));
+
+
+
+     
      
 
 

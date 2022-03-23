@@ -5,9 +5,25 @@
 #include "string"
 using namespace std;
 using namespace ariel;
-const int row_limit = 100;
+const int col_limit = 100;
  unsigned long i=0;
 
+ void ariel::check_t(unsigned long num){
+         if (num > col_limit){
+               throw std::invalid_argument("max col is 100"); 
+         }
+ }
+
+void ariel::Notebook::check_throws(unsigned long page , unsigned long row , unsigned long col ,Direction state , unsigned long numtocheck){
+        if(this->check_dirty(page , row , col , state , numtocheck)){
+                throw std::invalid_argument("someone else wrote here");
+        }
+        if (state ==Direction::Horizontal){
+                if(col+numtocheck > col_limit){
+                throw std::invalid_argument("error ! cannot write after col number 100");
+        }
+        }
+}
 
 void ariel::Notebook::check_pages_size(unsigned long page ){
         if(mynotebook.size()<=page){
@@ -21,19 +37,27 @@ bool ariel::Notebook::check_dirty(unsigned long page , unsigned long row , unsig
 }
 
 void ariel::Notebook::write(unsigned long page ,unsigned long row ,unsigned long col , Direction state , std::string towrite){
+        check_t(col);
         check_pages_size(page);
+    //    this->check_throws(page , row , col , state , (unsigned long)towrite.size());
         mynotebook[page].write(row , col , state , std::move(towrite));
         
 
 }
 
 string ariel::Notebook::read(unsigned long page ,  unsigned long row ,  unsigned long col , Direction state , unsigned long num){
-         check_pages_size(page);
+        check_t(col);
+        check_pages_size(page);
+      //  this->check_throws(page , row , col , state , num);
+        //          if(col+num > 100){
+        //         throw std::invalid_argument("error ! cannot write after col number 100");
+        // }
         return mynotebook[page].read(row , col , state , num);
 
 }
 
 void ariel::Notebook::erase( unsigned long page ,  unsigned long  row ,  unsigned long col , Direction state , unsigned long num){
+        check_t(col);
         check_pages_size(page);
         mynotebook[page].erase(row , col , state , num);
 }
@@ -44,10 +68,16 @@ void ariel::Notebook::show( unsigned long page){
 }
 
 
+// ariel::Row::Row(){
+//         myrow = (char*)malloc(sizeof(char)*row_limit);
+//         for(unsigned long j = 0 ; j < row_limit ; j++){
+//                 this->myrow[j]='_';
+//         }
+// }
+
 ariel::Row::Row(){
-        myrow = (char*)malloc(sizeof(char)*row_limit);
-        for(unsigned long j = 0 ; j < row_limit ; j++){
-                this->myrow[j]='_';
+        for(unsigned long j = 0 ; j < col_limit ; j++){
+                this->myrow.push_back('_');
         }
 }
 // ariel::Row::~Row(){
@@ -108,7 +138,9 @@ bool ariel::Row::check_dirty_char(unsigned long pos ){
 }
 
 void ariel::Row::zevel(){
-         cout << this->myrow << endl;
+         for(unsigned long i = 0 ; i < this->myrow.size(); i++){
+                 cout << myrow[i] ;
+         }
 }
 
 
@@ -144,13 +176,9 @@ void ariel::Page::write( unsigned long row ,  unsigned long pos , Direction stat
 
         else if(state == Direction::Vertical){
                  unsigned long j = 0;
-                cout << "to write is : ";
                  unsigned long k  = row;
                 while(k < row+tw.size()){
-                        cout << "k: "<< k <<endl;
-                        cout << "need: "<< row+tw.size() <<endl;
                         this->mypage[row+j].writechar(pos ,tw.at(j));
-                        cout<<"char is : "<<tw[k]<<endl;
                 
                         k+=1;
                         j+=1;
@@ -209,6 +237,7 @@ string ariel::Page::read( unsigned long row ,  unsigned long pos , Direction sta
 
 bool ariel::Page::check_dirty(unsigned long row , unsigned long pos , Direction state , unsigned long numtocheck){
         bool ans=false ;
+        bool final_ans = false; 
         if( state == Direction::Horizontal){
               ans =   mypage[row].check_dirty(pos , numtocheck);
 }
@@ -218,7 +247,10 @@ bool ariel::Page::check_dirty(unsigned long row , unsigned long pos , Direction 
                 cout << "to write is : ";
                 unsigned long k  = row;
                 while(k < row+numtocheck){
-                   ans =   this->mypage[row+j].check_dirty_char(pos);
+                   ans = this->mypage[row+j].check_dirty_char(pos);
+                   if(ans){
+                           final_ans = true;
+                   }
                         
         
                         k+=1;
@@ -227,6 +259,9 @@ bool ariel::Page::check_dirty(unsigned long row , unsigned long pos , Direction 
         
 
         }
+        if (final_ans){
+                ans = true;
+        }
         return ans;
         
 }
@@ -234,7 +269,7 @@ bool ariel::Page::check_dirty(unsigned long row , unsigned long pos , Direction 
 
 void ariel::Page::show_page(){
         for(i = 0 ; i < this->mypage.size(); i++){
-                this->mypage[i].zevel();
+                this->mypage.at(i).zevel();
                 
         }
 }

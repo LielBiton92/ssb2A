@@ -6,6 +6,7 @@ const  int  limit = 100;
 #include "vector"
 using namespace std;
 namespace ariel{
+        void check_t(unsigned long num);
 class Notebook;
 class Page;
 class Row;
@@ -27,6 +28,8 @@ class Notebook{
           bool check_dirty(unsigned long page , unsigned long row , unsigned long col , Direction state , unsigned long numtocheck);
 
           void show( unsigned long page);
+
+          void check_throws(unsigned long page , unsigned long row , unsigned long col ,Direction state , unsigned long numtocheck);
 
 
 
@@ -55,8 +58,9 @@ class Page{
 
 class Row{
         private:
-                 char *myrow ;
-                //vector <char> myrow;
+                // char *myrow ;
+                vector <char> myrow;
+                
 
         public:
                 Row();
